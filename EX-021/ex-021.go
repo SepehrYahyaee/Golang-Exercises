@@ -26,6 +26,9 @@ func main() {
 	fmt.Println(twoSum([]int{2, 7, 11, 15}, 9))
 	fmt.Println(twoSum([]int{3, 2, 4}, 6))
 	fmt.Println(twoSum([]int{3, 3}, 6))
+	fmt.Println(twoSum_with_hashMaps([]int{2, 7, 11, 15}, 9))
+	fmt.Println(twoSum_with_hashMaps([]int{3, 2, 4}, 6))
+	fmt.Println(twoSum_with_hashMaps([]int{3, 3}, 6))
 }
 
 func twoSum(nums []int, target int) []int {
@@ -45,4 +48,20 @@ outer:
 	return result
 }
 
-// Takeaway: We did the brute force way of solving this exercise, looping through each and every possible pair and finding the answer.
+func twoSum_with_hashMaps(nums []int, target int) []int {
+	freq := make(map[int]int)
+
+	for i, v := range nums {
+		freq[v] = i
+	}
+
+	for i, v := range nums {
+		if index, ok := freq[target-v]; ok == true && i != index {
+			return []int{i, index}
+		}
+	}
+
+	return nil
+}
+
+// Takeaway: We did the brute force way of solving this exercise, looping through each and every possible pair and finding the answer. Using maps is the better way to optimise the time complexity, and obviously make the space complexity worse.
